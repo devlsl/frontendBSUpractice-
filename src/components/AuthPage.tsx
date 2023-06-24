@@ -1,11 +1,9 @@
 import {
   Alert,
+  Box,
   Button,
   FormControl,
-  FormControlLabel,
   FormLabel,
-  Radio,
-  RadioGroup,
   Stack,
   TextField,
   Typography
@@ -20,8 +18,7 @@ const initialAuthFormValue: AuthForm = {
   disabledSubmitBtn: true,
   values: {
     login: '',
-    password: '',
-    role: 'кладовщик'
+    password: ''
   }
 }
 
@@ -49,7 +46,7 @@ export const AuthPage = () => {
     }
   }
 
-  const setNewValue = (key: keyof AuthData, value: Role | string) => {
+  const setNewValue = (key: keyof AuthData, value: string) => {
     setAuthForm((prev) => ({
       ...prev,
       values: { ...prev.values, [key]: value }
@@ -57,7 +54,7 @@ export const AuthPage = () => {
   }
 
   return (
-    <>
+    <Box mt="30vh">
       <FormControl disabled={authForm.disabled}>
         <FormLabel>
           <Typography variant="h5">Авторизация</Typography>
@@ -85,24 +82,6 @@ export const AuthPage = () => {
             }}
           />
 
-          <RadioGroup
-            defaultValue={'кладовщик' as Role}
-            value={authForm.values.role}
-            onChange={(_event, value) => {
-              setNewValue('role', value)
-            }}
-          >
-            <FormControlLabel
-              value={'кладовщик' as Role}
-              control={<Radio />}
-              label="Кладовщик"
-            />
-            <FormControlLabel
-              value={'сотрудник' as Role}
-              control={<Radio />}
-              label="Сотрудник"
-            />
-          </RadioGroup>
           <Button
             disabled={authForm.disabledSubmitBtn}
             variant="contained"
@@ -118,6 +97,6 @@ export const AuthPage = () => {
           )} */}
         </Stack>
       </FormControl>
-    </>
+    </Box>
   )
 }

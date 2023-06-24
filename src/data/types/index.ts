@@ -5,7 +5,6 @@ export type Status = 'выдача' | 'возврат'
 export interface AuthData {
   login: string
   password: string
-  role: Role
 }
 
 export interface AuthorizedUser extends AuthData {

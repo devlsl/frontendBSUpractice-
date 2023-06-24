@@ -8,7 +8,7 @@ import {
   TextField,
   Typography
 } from '@mui/material'
-import { AuthData, AuthForm, Role } from 'data/types'
+import { AuthData, AuthForm } from 'data/types'
 import { AuthProviderValue } from 'hoc/AuthProvider'
 import { useAuth } from 'hooks/useAuth'
 import { useEffect, useState } from 'react'

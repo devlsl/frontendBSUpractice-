@@ -11,6 +11,7 @@ import { Applications } from 'components/client/Applications'
 import { Acceptance } from 'components/worker/Acceptance'
 import { Delivery } from 'components/worker/Delivery'
 import { ToLoginPage } from 'hoc/ToLoginPage'
+import { BorrowedItemsByUser } from 'components/client/BorrowedItemsByUser'
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,15 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <ToLoginPage />
+      },
+      {
+        path: 'borrowedItemsByUser',
+        element: 
+        (<RequireAuth>
+        <RequireRole role="сотрудник">
+          <BorrowedItemsByUser />
+        </RequireRole>
+      </RequireAuth>)
       }
     ]
   },

@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from '@mui/material'
+import { Alert, Box, Button, Stack } from '@mui/material'
 import { DataGrid, GridColDef, GridRowId, ruRU } from '@mui/x-data-grid'
 import { AuthProviderValue } from 'hoc/AuthProvider'
 import { useAuth } from 'hooks/useAuth'
@@ -17,6 +17,8 @@ const columns: GridColDef[] = [
 ]
 
 export const NewApplication = () => {
+  const [hasAdded, setHasAdded] = useState(false)
+
   const [items, setItems] = useState<Item[]>([])
   const [selectedItems, setSelectedItems] = useState<GridRowId[]>([])
 
@@ -29,6 +31,10 @@ export const NewApplication = () => {
     if (user) {
       addNewApplication(user, selectedItems as number[])
     }
+    setHasAdded(true)
+    setTimeout(() => {
+      setHasAdded(false)
+    }, 3000)
   }
 
   return (
@@ -55,6 +61,9 @@ export const NewApplication = () => {
         >
           Сделать заявку
         </Button>
+        {hasAdded && (
+          <Alert severity="success">Заявка была успешно добавлена</Alert>
+        )}
       </Stack>
     </Box>
   )

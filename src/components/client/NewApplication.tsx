@@ -50,6 +50,7 @@ export const NewApplication = () => {
             }
           }}
           checkboxSelection
+          
           onRowSelectionModelChange={(selectedIds) =>
             setSelectedItems(selectedIds)
           }

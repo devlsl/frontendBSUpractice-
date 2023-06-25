@@ -22,5 +22,6 @@ export enum Path {
   Applications = '/applications',
   NewApplication = '/newApplication',
   Acceptance = '/acceptance',
-  Delivery = '/delivery'
+  Delivery = '/delivery',
+  BorrowedItemsByUser = '/borrowedItemsByUser'
 }

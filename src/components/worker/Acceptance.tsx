@@ -7,7 +7,7 @@ export interface Item {
   id_request: number,
   id_user: number,
   login: string,
-  id_tool_type: number,
+  inv_num: number,
   name: string,
   date: Date
   comment: string
@@ -17,7 +17,7 @@ const columns: GridColDef[] = [
   { field: 'id_request', headerName: 'ID заявки', width: 100 },
   { field: 'id_user', headerName: 'ID сотрудника', width: 150 },
   { field: 'login', headerName: 'Логин сотрудника', width: 150 },
-  { field: 'inv_num', headerName: 'ID оборудования', width: 150 },
+  { field: 'inv_num', headerName: 'Инвентарный номер', width: 150 },
   { field: 'name', headerName: 'Наименование оборудования', width: 250 },
   { field: 'date', headerName: 'Дата выдачи', width: 250 },
   { field: 'comment', headerName: 'Комментарий', width: 250 }
@@ -35,7 +35,7 @@ export const Acceptance = () => {
           localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
           rows={Requests}
           columns={columns}
-          getRowId={(row) => row?.id_request + " " + row?.id_tool_type}
+          getRowId={(row) => row?.inv_num}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 5 }

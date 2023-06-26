@@ -1,15 +1,11 @@
 import { Alert, Box, Button, Stack } from '@mui/material'
 import { DataGrid, GridColDef, GridRowId, ruRU } from '@mui/x-data-grid'
+import { Item } from 'data/types'
 import { AuthProviderValue } from 'hoc/AuthProvider'
 import { useAuth } from 'hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { addNewApplication } from 'service/addNewApplication'
 import { fetchItems } from 'service/fetchItems'
-
-export interface Item {
-  id: number
-  name: string
-}
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Инвентарный номер', width: 200 },
@@ -50,7 +46,6 @@ export const NewApplication = () => {
             }
           }}
           checkboxSelection
-          
           onRowSelectionModelChange={(selectedIds) =>
             setSelectedItems(selectedIds)
           }

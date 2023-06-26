@@ -25,3 +25,35 @@ export enum Path {
   Delivery = '/delivery',
   BorrowedItemsByUser = '/borrowedItemsByUser'
 }
+
+export interface Item {
+  id: number
+  name: string
+}
+
+export interface CountedItem extends Item {
+  count: number
+}
+
+export type ApplicationItemStatus = 'Выполнена' | 'Используется' | 'В обработке'
+
+export interface ApplicationItem extends CountedItem {
+  name: string
+  count: number
+  itemId: number
+  applicationId: number
+  status: ApplicationItemStatus
+}
+
+// export interface ItemObj {
+//   [id: number]: {
+//     name: string
+//     count: number
+//     status: number
+//   }
+// }
+
+// export interface Application {
+//   id: number
+//   items: ItemObj[]
+// }

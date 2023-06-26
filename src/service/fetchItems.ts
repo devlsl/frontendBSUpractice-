@@ -1,6 +1,6 @@
 import { url } from 'api'
 import axios from 'axios'
-import { Item } from 'components/client/NewApplication'
+import { Item } from 'data/types'
 
 export async function fetchItems() {
   const query = url + 'items'

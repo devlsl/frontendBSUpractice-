@@ -30,16 +30,6 @@ export const ClientOptionsBar = () => {
       >
         Новая заявка
       </Button>
-      <Button
-        color={currentPath === Path.BorrowedItemsByUser ? 'warning' : 'inherit'}
-        component={Link}
-        to={Path.BorrowedItemsByUser}
-        size="large"
-        sx={{ textTransform: 'none' }}
-        startIcon={<AutoAwesomeMotionIcon />}
-      >
-        Взятое оборудование
-      </Button>
     </Stack>
   )
 }

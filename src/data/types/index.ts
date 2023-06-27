@@ -23,7 +23,9 @@ export enum Path {
   NewApplication = '/newApplication',
   Acceptance = '/acceptance',
   Delivery = '/delivery',
-  BorrowedItemsByUser = '/borrowedItemsByUser'
+  BorrowedItemsByUser = '/borrowedItemsByUser',
+  ItemsLog = '/items/log',
+  itemsPanel = '/items/panel'
 }
 
 export interface Item {
@@ -45,15 +47,16 @@ export interface ApplicationItem extends CountedItem {
   status: ApplicationItemStatus
 }
 
-// export interface ItemObj {
-//   [id: number]: {
-//     name: string
-//     count: number
-//     status: number
-//   }
-// }
+export interface AcceptanceItem {
+  itemId: number
+  name: string
+  applicationId: number
+  clientLogin: string
+  comment: string
+  date: string
+}
 
-// export interface Application {
-//   id: number
-//   items: ItemObj[]
-// }
+export interface ActiveApplicationItem {
+  applicationId: number
+  items: CountedItem[]
+}

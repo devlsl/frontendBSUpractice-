@@ -11,6 +11,8 @@ import { Applications } from 'components/client/Applications'
 import { Acceptance } from 'components/worker/Acceptance'
 import { Delivery } from 'components/worker/Delivery'
 import { ToLoginPage } from 'hoc/ToLoginPage'
+import { ItemsLog } from 'components/worker/itemsLog'
+import { ItemsPanel } from 'components/worker/ItemsPanel'
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,26 @@ const router = createBrowserRouter([
           <RequireAuth>
             <RequireRole role="кладовщик">
               <Delivery />
+            </RequireRole>
+          </RequireAuth>
+        )
+      },
+      {
+        path: 'items/log',
+        element: (
+          <RequireAuth>
+            <RequireRole role="кладовщик">
+              <ItemsLog />
+            </RequireRole>
+          </RequireAuth>
+        )
+      },
+      {
+        path: 'items/panel',
+        element: (
+          <RequireAuth>
+            <RequireRole role="кладовщик">
+              <ItemsPanel />
             </RequireRole>
           </RequireAuth>
         )

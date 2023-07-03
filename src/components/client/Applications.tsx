@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Alert, AlertColor, Box, Stack, Typography } from '@mui/material'
 import { DataGrid, GridColDef, ruRU } from '@mui/x-data-grid'
 import { ApplicationItem } from 'data/types'
 import { AuthProviderValue } from 'hoc/AuthProvider'
@@ -7,11 +7,63 @@ import { useEffect, useState } from 'react'
 import { fetchApplicationItems } from 'service/fetchApplicationItems'
 
 const columns: GridColDef[] = [
-  { field: 'applicationId', headerName: 'Номер заявки', width: 130 },
-  { field: 'itemTypeId', headerName: 'Тип оборудование', width: 170 },
-  { field: 'name', headerName: 'Наименование', width: 250 },
-  { field: 'count', headerName: 'Количество', width: 120 },
-  { field: 'status', headerName: 'Статус', width: 130 }
+  {
+    field: 'applicationId',
+    headerName: 'Номер заявки',
+    width: 130,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'itemTypeId',
+    headerName: 'Тип оборудование',
+    width: 170,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'name',
+    headerName: 'Наименование',
+    width: 250,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'count',
+    headerName: 'Количество',
+    width: 120,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'status',
+    headerName: 'Статус',
+    width: 160,
+    align: 'center',
+    headerAlign: 'center',
+    renderCell: (params) => {
+      const status = params.row.status
+      let color
+      if (status === 'Используется') {
+        color = 'info'
+      }
+      if (status === 'В обработке') {
+        color = 'warning'
+      }
+      if (status === 'Выполнена') {
+        color = 'success'
+      }
+      return (
+        <Alert
+          sx={{ p: '0px 10px' }}
+          icon={false}
+          severity={color as AlertColor}
+        >
+          {status}
+        </Alert>
+      )
+    }
+  }
 ]
 
 export const Applications = () => {

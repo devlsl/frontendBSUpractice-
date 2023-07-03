@@ -1,31 +1,46 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import { DataGrid, GridColDef, ruRU } from '@mui/x-data-grid'
-import { AcceptanceItem } from 'data/types'
+import { ActiveApplication } from 'data/types'
 import { AuthProviderValue } from 'hoc/AuthProvider'
 import { useAuth } from 'hooks/useAuth'
 import { useEffect, useState } from 'react'
-import { fetchDeliveredItems } from 'service/fetchDeliveredItems'
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded'
-import AcceptItemModal from 'components/acceptItemModal'
+import { fetchActiveApplications } from 'service/fetchActiveApplications'
+import PublishedWithChangesIcon from '@mui/icons-material/PublishedWithChanges'
+import DeliverItemModal from 'components/modals/DeliverItemModal'
 
 export const Delivery = () => {
   const { user } = useAuth() as AuthProviderValue
 
   const [open, setOpen] = useState(false)
-  const [comment, setComment] = useState('')
-  const [row, setRow] = useState()
+  const [row, setRow] = useState<ActiveApplication>()
 
   const columns: GridColDef[] = [
-    { field: 'applicationId', headerName: 'Номер заявки', width: 130 },
-    { field: 'itemId', headerName: 'Инвентарный номер', width: 170 },
-    { field: 'name', headerName: 'Наименование', width: 200 },
-    { field: 'clientLogin', headerName: 'Логин пользователя', width: 170 },
-    { field: 'date', headerName: 'Дата', width: 120 },
-    { field: 'comment', headerName: 'Комментарий', width: 250 },
+    {
+      field: 'applicationId',
+      headerName: 'Номер заявки',
+      width: 130,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'login',
+      headerName: 'Логин сотрудника',
+      align: 'center',
+      headerAlign: 'center',
+      width: 160,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">{params.row.client.login}</Typography>
+        )
+      }
+    },
     {
       field: 'action',
-      headerName: 'Действие',
+      headerName: 'Выдача',
       sortable: false,
+      align: 'center',
+      headerAlign: 'center',
+      width: 80,
       renderCell: (params) => {
         const onClick = async (
           e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -37,46 +52,33 @@ export const Delivery = () => {
 
         return (
           <Button onClick={onClick}>
-            <BookmarkAddedIcon color="action" />
+            <PublishedWithChangesIcon color="action" />
           </Button>
         )
       }
     }
   ]
 
-  const [items, setItems] = useState<AcceptanceItem[]>([])
+  const [applications, setApplications] = useState<ActiveApplication[]>([])
 
   useEffect(() => {
     if (user) {
-      fetchDeliveredItems().then((fetchedItems) =>
-        setItems(
-          fetchedItems.map((item) => ({
-            ...item,
-            date: new Date(item.date).toLocaleString().split(', ')[0]
-          }))
-        )
-      )
+      fetchActiveApplications().then(setApplications)
     }
   }, [open])
 
   return (
     <Box sx={{ marginTop: '100px' }}>
-      {open && (
-        <AcceptItemModal
-          open={open}
-          setOpen={setOpen}
-          comment={comment}
-          setComment={setComment}
-          row={row}
-        />
+      {open && row && (
+        <DeliverItemModal open={open} setOpen={setOpen} row={row} />
       )}
       <Stack spacing={2}>
-        {!!items.length ? (
+        {!!applications.length ? (
           <DataGrid
             localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
-            rows={items}
+            rows={applications}
             columns={columns}
-            getRowId={(row) => `${row.applicationId}${row.itemId}`}
+            getRowId={(row) => row.applicationId}
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 5 }
@@ -85,7 +87,7 @@ export const Delivery = () => {
           />
         ) : (
           <Typography variant="h5" color="GrayText">
-            Нет
+            Нет заявок
           </Typography>
         )}
       </Stack>

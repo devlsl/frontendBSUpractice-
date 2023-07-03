@@ -6,7 +6,7 @@ import { useAuth } from 'hooks/useAuth'
 import { useEffect, useState } from 'react'
 import { fetchDeliveredItems } from 'service/fetchDeliveredItems'
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded'
-import AcceptItemModal from 'components/acceptItemModal'
+import AcceptItemModal from 'components/modals/AcceptItemModal'
 
 export const Acceptance = () => {
   const { user } = useAuth() as AuthProviderValue
@@ -16,15 +16,54 @@ export const Acceptance = () => {
   const [row, setRow] = useState()
 
   const columns: GridColDef[] = [
-    { field: 'applicationId', headerName: 'Номер заявки', width: 130 },
-    { field: 'itemId', headerName: 'Инвентарный номер', width: 170 },
-    { field: 'name', headerName: 'Наименование', width: 200 },
-    { field: 'clientLogin', headerName: 'Логин пользователя', width: 170 },
-    { field: 'date', headerName: 'Дата', width: 120 },
-    { field: 'comment', headerName: 'Комментарий', width: 250 },
+    {
+      field: 'applicationId',
+      headerName: 'Номер заявки',
+      width: 130,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'itemId',
+      headerName: 'Инвентарный номер',
+      width: 170,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'name',
+      headerName: 'Наименование',
+      width: 200,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'clientLogin',
+      headerName: 'Логин пользователя',
+      width: 170,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'date',
+      headerName: 'Дата',
+      width: 120,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'comment',
+      headerName: 'Комментарий',
+      width: 250,
+      align: 'center',
+      headerAlign: 'center'
+    },
     {
       field: 'action',
-      headerName: 'Действие',
+      headerName: 'Приём',
+      width: 70,
+      align: 'center',
+      headerAlign: 'center',
       sortable: false,
       renderCell: (params) => {
         const onClick = async (
@@ -48,14 +87,15 @@ export const Acceptance = () => {
 
   useEffect(() => {
     if (user) {
-      fetchDeliveredItems().then((fetchedItems) =>
+      fetchDeliveredItems().then((fetchedItems) => {
+        console.log(fetchedItems)
         setItems(
           fetchedItems.map((item) => ({
             ...item,
             date: new Date(item.date).toLocaleString().split(', ')[0]
           }))
         )
-      )
+      })
     }
   }, [open])
 
@@ -85,7 +125,7 @@ export const Acceptance = () => {
           />
         ) : (
           <Typography variant="h5" color="GrayText">
-            Нет
+            Нет заявок
           </Typography>
         )}
       </Stack>

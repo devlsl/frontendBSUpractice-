@@ -29,20 +29,30 @@ export enum Path {
 }
 
 export interface Item {
-  id: number
+  id: number // инвентарный номер
   name: string
 }
 
-export interface CountedItem extends Item {
+export interface TypedItem {
+  itemTypeId: number
+  name: string
+}
+
+export interface CertainItem extends TypedItem {
+  itemId: number
+}
+
+export interface OptionalCertainItem extends TypedItem {
+  itemId: number
+}
+
+export interface CountedItem {
   count: number
 }
 
 export type ApplicationItemStatus = 'Выполнена' | 'Используется' | 'В обработке'
 
-export interface ApplicationItem extends CountedItem {
-  name: string
-  count: number
-  itemId: number
+export interface ApplicationItem extends CountedItem, TypedItem {
   applicationId: number
   status: ApplicationItemStatus
 }
@@ -56,7 +66,36 @@ export interface AcceptanceItem {
   date: string
 }
 
-export interface ActiveApplicationItem {
+export interface CountedTypedItem extends CountedItem, TypedItem {}
+
+export interface ActiveApplication {
   applicationId: number
-  items: CountedItem[]
+  items: CountedTypedItem[]
+  client: {
+    id: number
+    login: string
+  }
 }
+
+export interface DeliveringItem {
+  applicationId: number
+  itemId: number
+  itemTypeId: number
+}
+
+export interface LogItem {
+  itemId: number
+  applicationId: number
+  clientLogin: string
+  comment: string
+  name: string
+  status: string
+  date: string
+}
+
+// export type AvailableItem = CertainItem
+
+// export type ActiveApplicationsAndAvailableItems = {
+//   applications: ActiveApplication[]
+//   items: AvailableItem
+// }

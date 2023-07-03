@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
-import { TextareaAutosize } from '@mui/material'
+import { Stack, TextareaAutosize } from '@mui/material'
 import { acceptItem } from 'service/acceptItem'
 
 const style = {
@@ -40,11 +40,11 @@ export default function AcceptItemModal({
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <Box sx={style}>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Stack alignItems="center">
           <Typography variant="h6" component="h2" color="ButtonText">
             Приём товара
           </Typography>
-        </Box>
+        </Stack>
 
         <TextareaAutosize
           placeholder="Комментарий"
@@ -52,7 +52,11 @@ export default function AcceptItemModal({
             border: '2px solid grey',
             width: '100%',
             height: '100px',
-            marginTop: '15px'
+            marginTop: '15px',
+            padding: '3px',
+            fontFamily: 'sans-serif',
+            fontSize: '18px',
+            resize: 'none'
           }}
           value={comment}
           onChange={(e) => setComment(e.target.value)}

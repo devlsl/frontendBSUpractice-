@@ -8,8 +8,20 @@ import { addNewApplication } from 'service/addNewApplication'
 import { fetchItems } from 'service/fetchItems'
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'Инвентарный номер', width: 200 },
-  { field: 'name', headerName: 'Наименование', width: 250 }
+  {
+    field: 'id',
+    headerName: 'Инвентарный номер',
+    width: 200,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'name',
+    headerName: 'Наименование',
+    width: 250,
+    align: 'center',
+    headerAlign: 'center'
+  }
 ]
 
 export const NewApplication = () => {

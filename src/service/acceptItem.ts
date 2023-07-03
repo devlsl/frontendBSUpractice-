@@ -7,7 +7,7 @@ export async function acceptItem(
   clientLogin: string,
   comment: string
 ) {
-  const query = url + 'worker/items/accept'
+  const query = url + 'worker/item/accept'
 
   await axios.post(query, {
     params: { item: { itemId, applicationId, clientLogin, comment } }
